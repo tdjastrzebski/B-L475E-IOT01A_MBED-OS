@@ -1,0 +1,205 @@
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "2.0.0",
+    "tasks": [
+        {
+            // requires: pip install mbed-tools
+            "label": "Build mbed-tools",
+            "type": "shell",
+            "command": "mbed-tools",
+            "args": [
+                "compile",
+                "-m",
+                "DISCO_L475VG_IOT01A",
+                "-t",
+                "GCC_ARM"
+            ],
+            "presentation": {
+                "clear": true
+            },
+            "problemMatcher": [
+                "$gcc"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }            
+        },
+        {
+            "label": "Build CMake",
+            "type": "shell",
+            "command": "cmake",
+            "args": [
+                "--build",
+                "cmake_build/DISCO_L475VG_IOT01A/develop/GCC_ARM"
+            ],
+            "presentation": {
+                "clear": true
+            },
+            "problemMatcher": [
+                "$gcc"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }            
+        },
+        {
+            "label": "Build Ninja",
+            "type": "shell",
+            "command": "ninja",
+            "args": [
+                "-C",
+                "cmake_build/DISCO_L475VG_IOT01A/develop/GCC_ARM"
+            ],
+            "presentation": {
+                "clear": true
+            },
+            "problemMatcher": [
+                "$gcc"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }            
+        },
+        {
+            "label": "Deploy (copy)",
+            "type": "shell",
+            "command": "cp",
+            "args": [
+                "${workspaceRoot}/cmake_build/DISCO_L475VG_IOT01A/develop/GCC_ARM/${workspaceRootFolderName}.bin",
+                "G:/"
+            ],
+            "options": {
+                "cwd": "${workspaceRoot}"
+            },
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "problemMatcher": [],
+            "presentation": {
+                "clear": true
+            },
+        },
+        {
+            // Requires ST-LINK Utility (https://github.com/stlink-org/stlink)
+            "label": "Deploy (ST-Link)",
+            "type": "shell",
+            "command": "st-flash",
+            "args": [
+                "--reset",
+                //"--debug",
+                "--opt",
+                "write",
+                "'${workspaceRoot}/cmake_build/DISCO_L475VG_IOT01A/develop/GCC_ARM/${workspaceRootFolderName}.bin'",
+                "0x08000000",
+            ],
+            "options": {
+                "cwd": "${workspaceRoot}"
+            },
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "problemMatcher": [],
+            "presentation": {
+                "clear": true
+            },
+        },
+        {
+            "label": "Deploy (pyOCD debug)",
+            "type": "shell",
+            "command": "pyocd",
+            "args": [
+                "flash",
+                "${workspaceRoot}/cmake_build/DISCO_L475VG_IOT01A/develop/GCC_ARM/${workspaceRootFolderName}.bin",
+                "--base-address",
+                "0x08000000",
+                "--target",
+                "STM32L475VGTx",
+                "--connect",
+                "halt",
+                "--frequency",
+                "24m"
+            ],
+            "options": {
+                "cwd": "${workspaceRoot}"
+            },
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "problemMatcher": [],
+            "presentation": {
+                "clear": true
+            },
+        },
+        {
+            "label": "Deploy (OpenOCD debug)",
+            "type": "shell",
+            "command": "openocd",
+            "args": [
+                "-s",
+                "{env:OpenOCD}/scripts",
+                "-f",
+                "${workspaceRoot}/STM32L4x_STLink.cfg",
+                "-c program \"cmake_build/DISCO_L475VG_IOT01A/develop/GCC_ARM/${workspaceRootFolderName}.elf\" verify reset exit"
+            ],
+            "options": {
+                "cwd": "${workspaceRoot}"
+            },
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "problemMatcher": [],
+            "presentation": {
+                "clear": true
+            },
+        },
+        {
+            "label": "Clean",
+            "type": "shell",
+            "command": "rm",
+            "args": [
+                "-rf",
+                "BUILD"
+            ],
+            "options": {
+                "cwd": "${workspaceRoot}"
+            },
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "problemMatcher": [],
+            "presentation": {
+                "clear": true
+            },
+        },
+        {
+            // Requires: npm install -g @serialport/terminal
+            "label": "Serial terminal",
+            "type": "shell",
+            "command": "serialport-terminal",
+            "args": [
+                "-b",
+                "115200"
+            ],
+            "options": {
+                "cwd": "${workspaceRoot}"
+            },
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "problemMatcher": [],
+            "presentation": {
+                "clear": true
+            },
+        }
+    ]
+}
