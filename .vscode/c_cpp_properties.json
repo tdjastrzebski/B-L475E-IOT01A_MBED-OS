@@ -16,7 +16,9 @@
       "defines": [
         "USE_HAL_DRIVER",
         "STM32L475xx",
-        "DEBUG"
+        "DEBUG",
+        "LED1",
+        "TARGET_DISCO_L475VG_IOT01A"
       ],
       "browse": {
         "path": [

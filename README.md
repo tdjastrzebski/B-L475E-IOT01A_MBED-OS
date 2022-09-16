@@ -22,3 +22,5 @@ git submodule add --depth 1 https://github.com/ARMmbed/mbed-os mbed-os
 git config -f .gitmodules submodule.mbed-os.shallow true
 
 `pyocd pack install STM32L475VGTx`
+
+[Updating ISM 43362 WiFi module firmware on B-L475E-IOT01A board - please rescue!](https://community.st.com/s/question/0D53W00001nnSaxSAE/updating-ism-43362-wifi-module-firmware-on-bl475eiot01a-board-sos)
