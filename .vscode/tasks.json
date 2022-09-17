@@ -69,7 +69,7 @@
             "type": "shell",
             "command": "cp",
             "args": [
-                "${workspaceRoot}/cmake_build/DISCO_L475VG_IOT01A/develop/GCC_ARM/${workspaceRootFolderName}.bin",
+                "cmake_build/DISCO_L475VG_IOT01A/develop/GCC_ARM/${workspaceRootFolderName}.bin",
                 "G:/"
             ],
             "options": {
@@ -94,7 +94,7 @@
                 //"--debug",
                 "--opt",
                 "write",
-                "'${workspaceRoot}/cmake_build/DISCO_L475VG_IOT01A/develop/GCC_ARM/${workspaceRootFolderName}.bin'",
+                "'cmake_build/DISCO_L475VG_IOT01A/develop/GCC_ARM/${workspaceRootFolderName}.bin'",
                 "0x08000000",
             ],
             "options": {
@@ -115,7 +115,7 @@
             "command": "pyocd",
             "args": [
                 "flash",
-                "${workspaceRoot}/cmake_build/DISCO_L475VG_IOT01A/develop/GCC_ARM/${workspaceRootFolderName}.bin",
+                "$cmake_build/DISCO_L475VG_IOT01A/develop/GCC_ARM/${workspaceRootFolderName}.bin",
                 "--base-address",
                 "0x08000000",
                 "--target",
@@ -145,7 +145,7 @@
                 "-s",
                 "{env:OpenOCD}/scripts",
                 "-f",
-                "${workspaceRoot}/STM32L4x_STLink.cfg",
+                "STM32L4x_STLink.cfg",
                 "-c program \"cmake_build/DISCO_L475VG_IOT01A/develop/GCC_ARM/${workspaceRootFolderName}.elf\" verify reset exit"
             ],
             "options": {
