@@ -1,3 +1,5 @@
+> git clone --recurse-submodules https://github.com/tdjastrzebski/B-L475E-IOT01A_MBED-OS
+
 # References
 
 * [STM32L475VG](https://www.st.com/en/microcontrollers-microprocessors/stm32l475vg.html) Ultra-low-power with FPU Arm Cortex-M4 MCU 80 MHz with 1 Mbyte of Flash memory, USB OTG, DFSDM  
